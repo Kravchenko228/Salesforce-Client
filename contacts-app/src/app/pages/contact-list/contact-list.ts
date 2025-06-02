@@ -66,7 +66,7 @@ export class ContactList implements OnInit {
   }
 
   newContact(): void {
-    this.router.navigate(['/contact/new']);
+    this.router.navigate(['/contact', 'new']);
   }
 
 }

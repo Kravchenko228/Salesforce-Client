@@ -1,0 +1,62 @@
+<div class="p-4 max-w-md mx-auto bg-white shadow-md rounded">
+    <button class="text-blue-500 mb-4" (click)="goBack()">
+        ← Back to list
+    </button>
+    <div class="flex justify-end gap-4 mb-4">
+        <button *ngIf="!isNew && !isEdit" class="text-blue-600" (click)="toggleEdit()">Edit</button>
+        <button *ngIf="!isNew" class="text-red-600" (click)="delete()">Delete</button>
+    </div>
+
+    <form *ngIf="isEdit" (ngSubmit)="save()" class="grid gap-4 max-w-md">
+        <label>
+            Name:
+            <input class="input" [(ngModel)]="contact.name" name="name" required />
+        </label>
+        <label>
+            Full Address:
+            <input class="input" [(ngModel)]="contact.fullAddress" name="address" />
+        </label>
+        <label>
+            Email:
+            <input class="input" [(ngModel)]="contact.email" name="email" type="email" required />
+        </label>
+        <label>
+            Phone:
+            <input class="input" [(ngModel)]="contact.phone" name="phone" pattern="^\\+?[0-9\\-\\s]+$" required />
+        </label>
+        <label>
+            Cell:
+            <input class="input" [(ngModel)]="contact.cell" name="cell" />
+        </label>
+        <label>
+            Registration Date:
+            <input class="input" [(ngModel)]="contact.registrationDate" name="registrationDate" type="date" />
+        </label>
+        <label>
+            Age:
+            <input class="input" [(ngModel)]="contact.age" name="age" type="number" />
+        </label>
+        <label>
+            Image URL:
+            <input class="input" [(ngModel)]="contact.imageUrl" name="imageUrl" />
+        </label>
+        <button class="bg-blue-600 text-white p-2 rounded mt-2" type="submit">Save</button>
+    </form>
+
+    <div *ngIf="loading">Loading...</div>
+    <div *ngIf="error">{{ error }}</div>
+
+    <div *ngIf="!isEdit && contact">
+        <img class="contact-avatar mx-auto mb-4" [src]="contact.imageUrl " />
+        <h2 class="contact-name text-center">{{ contact.name }}</h2>
+        <p class="contact-email text-center mb-2">{{ contact.email }}</p>
+
+        <div class="contact-info">
+            <p><strong>Phone:</strong> {{ contact.phone }}</p>
+            <p><strong>Cell:</strong> {{ contact.cell }}</p>
+            <p><strong>Age:</strong> {{ contact.age }}</p>
+            <p><strong>Address:</strong> {{ contact.fullAddress }}</p>
+            <p><strong>Registered:</strong> {{ contact.registrationDate | date }}</p>
+        </div>
+    </div>
+</div>
