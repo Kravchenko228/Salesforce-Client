@@ -1,0 +1,31 @@
+<div class="contacts-list">
+
+    <div class="top-actions">
+        <button class="contact-list-buton" (click)="addRandomContacts()">Add Random Records</button>
+        <button class="contact-list-buton" (click)="newContact()">New Contact</button>
+    </div>
+
+    <div *ngIf="loading" class="loading"> Loading contacts...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <ng-container *ngIf="!loading && !error">
+        <ng-container *ngFor="let letter of groupedContacts | keyvalue">
+            <div class="section-letter">{{ letter.key }}</div>
+            <ul class="divide-y divide-gray-200">
+                <li *ngFor="let contact of letter.value" class="p-4 flex items-center hover:bg-gray-50 cursor-pointer"
+                    (click)="viewContact(contact.id)">
+
+                    <img alt="avatar" class="contact-avatar mr-4"
+                        [src]="contact.imageUrl || 'https://via.placeholder.com/48'" />
+
+                    <div>
+                        <div class="contact-name">{{ contact.name }}</div>
+                        <div class="contact-email">{{ contact.email }}</div>
+                    </div>
+
+
+                </li>
+            </ul>
+        </ng-container>
+    </ng-container>
+</div>
