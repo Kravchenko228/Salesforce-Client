@@ -1,7 +1,8 @@
 <div class="contacts-list">
+    <h1>Contacts</h1>
 
     <div class="top-actions">
-        <button class="contact-list-buton" (click)="addRandomContacts()">Add Random Records</button>
+        <button class="contact-list-buton" (click)="addRandomContacts()">Add Random Contacts</button>
         <button class="contact-list-buton" (click)="newContact()">New Contact</button>
     </div>
 
@@ -15,8 +16,7 @@
                 <li *ngFor="let contact of letter.value" class="p-4 flex items-center hover:bg-gray-50 cursor-pointer"
                     (click)="viewContact(contact.id)">
 
-                    <img alt="avatar" class="contact-avatar mr-4"
-                        [src]="contact.imageUrl || 'https://via.placeholder.com/48'" />
+                    <img alt="avatar" class="contact-avatar mr-4" [src]="contact.imageUrl " />
 
                     <div>
                         <div class="contact-name">{{ contact.name }}</div>

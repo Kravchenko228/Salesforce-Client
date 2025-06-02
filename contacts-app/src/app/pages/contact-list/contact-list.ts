@@ -3,6 +3,7 @@ import { ContactsService } from '../../services/contacts.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -20,9 +21,10 @@ export class ContactList implements OnInit {
 
 
 
-  constructor(private contactsService: ContactsService, private router: Router) { }
+  constructor(private contactsService: ContactsService, private router: Router, private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Contacts App');
     this.contactsService.getContacts().subscribe({
       next: (data) => {
         this.groupedContacts = this.groupByFirstLetter(data);
