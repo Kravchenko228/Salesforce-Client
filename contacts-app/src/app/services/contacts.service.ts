@@ -23,5 +23,7 @@ export class ContactsService {
   deleteContact(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/api/contacts/${id}`);
   }
-
+  addRandomContacts(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/contacts/random`, {});
+  }
 }
