@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ContactsService } from '../../services/contacts.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, } from '@angular/forms';
 
 @Component({
   selector: 'app-contact-details',
@@ -19,10 +19,13 @@ export class ContactDetails implements OnInit {
   isEdit = false;
   isNew = false;
 
+
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private contactsService: ContactsService
+    private contactsService: ContactsService,
+
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +34,16 @@ export class ContactDetails implements OnInit {
     if (id === 'new') {
       this.isNew = true;
       this.isEdit = true;
-      this.contact = { name: '', fullAddress: '', email: '', phone: '', cell: '', registrationDate: '', age: '', imageUrl: '' };
+      this.contact = {
+        name: '',
+        fullAddress: '',
+        email: '',
+        phone: '',
+        cell: '',
+        registrationDate: '',
+        age: '',
+        imageUrl: ''
+      };
     } else {
       this.contactsService.getContact(+id!).subscribe(data => this.contact = data);
     }
