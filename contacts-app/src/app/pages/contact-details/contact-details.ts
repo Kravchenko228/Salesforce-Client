@@ -43,6 +43,7 @@ export class ContactDetails implements OnInit {
         registrationDate: '',
         age: '',
         imageUrl: ''
+
       };
     } else {
       this.contactsService.getContact(+id!).subscribe(data => this.contact = data);
@@ -52,6 +53,7 @@ export class ContactDetails implements OnInit {
 
     if (isNaN(contactId)) {
       this.error = 'no contact ID';
+
       this.loading = false;
       return;
     }

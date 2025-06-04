@@ -41,6 +41,24 @@ button[disabled] {
 }
 
 
+.button {
+    background-color: #096fce;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+.button:hover {
+    background-color: #065a9c;
+}
+
+
 
 
 .detail-buton {
