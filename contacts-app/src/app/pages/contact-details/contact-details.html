@@ -1,0 +1,79 @@
+<div class="p-4 max-w-md mx-auto bg-white shadow-md rounded">
+    <div class="p-1 mb-2 flex justify-between items-center">
+        <button class=" text-blue-500 mb-4" (click)="goBack()">
+            ← Back to list
+        </button>
+        <!--class="flex justify-end gap-4 mb-4">-->
+        <button class="detail-buton blue " *ngIf="!isNew && !isEdit" (click)="toggleEdit()">Edit</button>
+        <button class="detail-buton red" *ngIf="!isNew" (click)="delete()">Delete</button>
+
+    </div>
+    <h1 class="text-2xl font-bold mb-4">{{ isNew ? 'New Contact' : 'Contact Details' }}</h1>
+
+
+    <form *ngIf="isEdit && contact" #form="ngForm" (ngSubmit)="save()" class="grid gap-4 max-w-md">
+        <label>
+            Name:
+            <input class="input" [(ngModel)]="contact.name" name="name" required />
+        </label>
+        <label>
+            Full Address:
+            <input class="input" [(ngModel)]="contact.fullAddress" name="address" required />
+        </label>
+        <label>
+            Email:
+            <input class="input" [(ngModel)]="contact.email" name="email" type="email" required #email="ngModel" />
+            <div *ngIf="email.invalid && email.touched" class="text-red-500 text-sm">
+                <div *ngIf="email.errors?.['required']">Email is required.</div>
+                <div *ngIf="email.errors?.['email']">Enter a valid email.</div>
+            </div>
+        </label>
+
+        <label>
+            Phone:
+            <input class="input" name="phone" [(ngModel)]="contact.phone" required pattern="^[0-9() \\-]+$"
+                #phone="ngModel" />
+
+            <div *ngIf="phone.invalid && phone.touched" class="text-red-500 text-sm">
+                <div *ngIf="phone.errors?.['required']">Phone number is required.</div>
+                <div *ngIf="phone.errors?.['pattern']">Only digits, spaces, dashes, or '+' allowed.</div>
+            </div>
+        </label>
+        <label>
+            Cell:
+            <input class="input" [(ngModel)]="contact.cell" name="cell" />
+        </label>
+        <label>
+            Registration Date:
+            <input class="input" [(ngModel)]="contact.registrationDate" name="registrationDate" type="date" required />
+        </label>
+        <label>
+            Age:
+            <input class="input" [(ngModel)]="contact.age" name="age" type="number" required />
+        </label>
+        <label>
+            Image URL:
+            <input class="input" [(ngModel)]="contact.imageUrl" name="imageUrl" />
+        </label>
+        <button class="bg-blue-600 text-white p-2 rounded mt-2" type="submit" [disabled]="form.invalid">Save</button>
+
+
+    </form>
+
+    <div *ngIf="loading">Loading...</div>
+    <div *ngIf="error">{{ error }}</div>
+
+    <div *ngIf="!isEdit && contact">
+        <img class="contact-avatar mx-auto mb-4" [src]="contact.imageUrl " />
+        <h2 class="contact-name text-center">{{ contact.name }}</h2>
+        <p class="contact-email text-center mb-2">{{ contact.email }}</p>
+
+        <div class="contact-info">
+            <p><strong>Phone:</strong> {{ contact.phone }}</p>
+            <p><strong>Cell:</strong> {{ contact.cell }}</p>
+            <p><strong>Age:</strong> {{ contact.age }}</p>
+            <p><strong>Address:</strong> {{ contact.fullAddress }}</p>
+            <p><strong>Registered:</strong> {{ contact.registrationDate | date }}</p>
+        </div>
+    </div>
+</div>

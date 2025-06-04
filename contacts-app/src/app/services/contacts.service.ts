@@ -26,4 +26,7 @@ export class ContactsService {
   addRandomContacts(): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/contacts/random`, {});
   }
+  createContact(contact: any): Observable<any> {
+    return this.http.post('/api/contacts', contact);
+  }
 }
