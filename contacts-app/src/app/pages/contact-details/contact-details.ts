@@ -46,7 +46,15 @@ export class ContactDetails implements OnInit {
 
       };
     } else {
-      this.contactsService.getContact(+id!).subscribe(data => this.contact = data);
+
+      this.contactsService.getContact(+id!).subscribe({
+        next: (data) => this.contact = data,
+        error: (err) => {
+          console.error('Error fetching contact:', err);
+          this.error = 'Could not load contact details';
+          this.loading = false;
+        }
+      });
     }
 
 
@@ -64,7 +72,7 @@ export class ContactDetails implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.error = 'Failed to load contacts details.';
+        this.error = 'Error fetching contacts .';
         console.error('Error fetching contact:', err);
         this.loading = false;
       }
@@ -80,9 +88,21 @@ export class ContactDetails implements OnInit {
 
   save(): void {
     if (this.isNew) {
-      this.contactsService.createContact(this.contact).subscribe(() => this.router.navigate(['/']));
+      this.contactsService.createContact(this.contact).subscribe({
+        next: () => this.router.navigate(['/']),
+        error: (err) => {
+          console.error('Error creating contact:', err);
+          this.error = 'Could not create contact.';
+        }
+      });
     } else {
-      this.contactsService.updateContact(this.contact.id, this.contact).subscribe(() => this.isEdit = false);
+      this.contactsService.updateContact(this.contact.id, this.contact).subscribe({
+        next: () => this.isEdit = false,
+        error: (err) => {
+          console.error('Error updating contact ', err);
+          this.error = 'Could not save changes';
+        }
+      });
     }
   }
 
